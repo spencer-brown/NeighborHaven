@@ -9,7 +9,7 @@
     "sails-disk": "~0.9.0",
     "ejs": "0.8.4",
     "optimist": "0.3.4",
-    "lob": "~2.1.1"
+    "lob": "2.1.1"
   },
   "scripts": {
     "start": "node app.js",
