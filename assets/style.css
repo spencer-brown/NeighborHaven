@@ -6,6 +6,22 @@
 	height: 150px;
 }*/
 
+.showMarker h1, .showMarker h2, .showMarker h3 {
+	margin: 0px;
+	font-weight: normal;
+}
+
+.showMarker h3 {
+	font-size: 14px;
+	padding-top: 10px;
+}
+
+.showMarker h2 {
+	font-size:20px;
+	padding-top:5px;
+}
+
+
 .editMarker ul {
 	list-style-type: none;
 	padding: 0px;
@@ -36,15 +52,26 @@
 	padding: 3px;
 }
 
+
 .user h4 {
 	display: inline-block;
-	color: white;
 	font-weight: normal;
-	margin-left: 10px;
+	margin-left: 5px;
+	margin-bottom: 0px;
+	margin-top: 0px;
 }
 
 .user {
 	border-left: 1px solid white;
 	margin-left: 50px;
 	padding-left: 30px;
+	
+	display: inline-block;
+	margin-left: 0px;
+	border-left: 0px;
+}
+
+.user img {
+	max-height: 34px;
+	border-radius: 3px;
 }

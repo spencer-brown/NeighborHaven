@@ -71,9 +71,9 @@ function initialize() {
 		placeMarker(snapshot.name(), snapshot.val());
 	});
 
-	fb.on("child_changed", function(snapshot) {
-		placeMarker(snapshot.name(), snapshot.val());
-	});
+	// fb.on("child_changed", function(snapshot) {
+	// 	placeMarker(snapshot.name(), snapshot.val());
+	// });
 
 	fb.on("child_removed", function(snapshot) {
 		var id = snapshot.name();
@@ -141,10 +141,10 @@ function initialize() {
 		try {
 			if(location.user.thirdPartyUserData.name)
 				image = location.user.thirdPartyUserData.picture.data.url;
-			else
-				image = 'http://nwex.co.uk/images/smilies/turd.gif';
+			// else
+			// 	image = 'http://nwex.co.uk/images/smilies/turd.gif';
 		} catch(e) {
-			image = 'http://nwex.co.uk/images/smilies/turd.gif';
+			// image = 'http://nwex.co.uk/images/smilies/turd.gif';
 		}
 
 
@@ -162,11 +162,14 @@ function initialize() {
 			new FirebaseSimpleLogin(fb, function(error, user) {
 				scope.$apply(function() {
 					
+					if(window.infowindow)
+						window.infowindow.close();
+					
 					if(scope.markers[id] && user && user.id == scope.markers[id].user.id) {
 					
 						var element = compile(document.getElementById("markerEdit").innerHTML.replace(/%id%/gi, id))(scope)[0];
 		
-						var infowindow = new google.maps.InfoWindow({
+						var infowindow = window.infowindow = new google.maps.InfoWindow({
 							maxWidth: 300
 						});
 					
@@ -181,9 +184,10 @@ function initialize() {
 						}, 100);
 						
 					} else {
+						console.log("id", id);
 						var element = compile(document.getElementById("markerShow").innerHTML.replace(/%id%/gi, id))(scope)[0];
 		
-						var infowindow = new google.maps.InfoWindow({
+						var infowindow = window.infowindow = new google.maps.InfoWindow({
 							maxWidth: 300
 						});
 					
@@ -220,6 +224,14 @@ function initialize() {
 	}
 	
 	angular.module("map", ['firebase'])
+		.filter("showTitle", function() {
+			
+			return function(element) {
+				return (element.title ? element.title : element.user.thirdPartyUserData.name );
+				
+			};
+			
+		});
 	
 	angular.bootstrap(document, ['map']);
 

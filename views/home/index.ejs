@@ -21,12 +21,11 @@
 	</script>
 	<script id="markerShow" type="template">
 		<div class="showMarker">
-			<h1> {{markers['%id%'].title ? markers['%id%'].title : markers['%id%'].user.thirdPartyUserData.name + "'s Event" }} </h1>
+			<h1> {{ markers['%id%'] | showTitle }} </h1>
 			<h2> {{markers['%id%'].time}} </h2>
 			<h3> {{markers['%id%'].description}} </h3>
 			<p>
-			  <img src="{{user.thirdPartyUserData.picture.data.url}}" ng-show="user.thirdPartyUserData.picture.data.url">
-			  <h4>{{user.thirdPartyUserData.name}}</h4>
+			  <h4>{{markers['%id%'].user.thirdPartyUserData.name}}'s Event</h4>
 			</p>
 		</div>
 	</script>
