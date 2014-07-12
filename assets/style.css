@@ -1,0 +1,50 @@
+.editMarker {
+	height: 163px;	
+}
+
+/*.showMarker {
+	height: 150px;
+}*/
+
+.editMarker ul {
+	list-style-type: none;
+	padding: 0px;
+	margin: 0px;
+	
+}
+
+.editMarker ul li:first-child {
+	margin-top: 5px;
+}
+
+.editMarker textarea {
+	width: 218px;
+	height: 42px;
+	resize: none;
+	
+}
+
+.editMarker .btn {
+	margin-left: 5px;
+}
+
+.editMarker textarea, .editMarker input, .editMarker select {
+	width: 218px;
+	border-radius: 2px;
+	border: 1px solid #ddd;
+	margin: 5px;
+	padding: 3px;
+}
+
+.user h4 {
+	display: inline-block;
+	color: white;
+	font-weight: normal;
+	margin-left: 10px;
+}
+
+.user {
+	border-left: 1px solid white;
+	margin-left: 50px;
+	padding-left: 30px;
+}

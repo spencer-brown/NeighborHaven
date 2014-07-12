@@ -1,93 +1,79 @@
-<!-- Default home page -->
-<link type="text/css" href='http://sailsjs.org/styles/fonts.css' rel='stylesheet'/>
-<style>
-    /* Styles included inline since you'll probably be deleting this page anyway */
-    html,body{text-align:left;font-size:1em}html,body,img,form,textarea,input,fieldset,div,p,div,ul,li,ol,dl,dt,dd,h1,h2,h3,h4,h5,h6,pre,code{margin:0;padding:0}ul,li{list-style:none}img{display:block}a img{border:0}a{text-decoration:none;font-weight:normal;font-family:inherit}*:active,*:focus{outline:0;-moz-outline-style:none}h1,h2,h3,h4,h5,h6{font-weight:normal}div.clear{clear:both}.clearfix:after{clear:both;content:".";display:block;font-size:0;height:0;line-height:0;visibility:hidden}body{font-family:"Open Sans",Arial,sans-serif;font-weight:300;font-size:15px}h1{color:#0c8da0;font-size:2em;font-weight:300}h2{font-size:1.5em;font-weight:300;margin-top:4%}h3{font-size:1.25em;font-weight:300;font-style:italic;margin-bottom:5px}h4{color:#0c8da0;font-weight:300;font-size:1.5em}span{font-weight:700}ul{margin-top:5%;margin-bottom:5%}a{text-decoration:none;color:inherit}p{margin-bottom:7px;font-size:.9em}.container{max-width:997px;margin:0 auto;padding:0 4%}.sprite{font-weight:normal;background:url(http://sailsjs.org/images/newapp.sprite.png) no-repeat}.top-bar{position:relative;padding-top:10px;background-color:#001c20;height:55px}.main{float:left;max-width:610px;height:555px;margin-top:50px}.steps{height:250px}.getting-started p{ margin-bottom: 30px; line-height: 26px; }.getting-started div{float:left;width:540px}.getting-started li{clear:both;height:60px;margin-top:20px;margin-bottom:20px}.getting-started .sprite{margin-left:10px;padding-left:60px;height:42px;width:0}.getting-started .one{background-position:0 0}.getting-started .two{background-position:0 -42px}.getting-started .three{background-position:0 -83px}.delete{margin-top:5%;height:52px;background:#e3f0f1;border:1px solid #118798;color:#118798;clear:both}.delete .sprite{margin-top:10px;margin-bottom:10px;margin-left:9%;padding-left:42px;padding-top:7px;height:25px;background-position:0 -126px}.delete a{color:#0c8da0;font-weight:bold;padding-left:1%}.side-bar{max-width:327px;height:555px;float:left;border-left:1px solid #0c8da0;margin-left:25px;margin-top:50px;padding-left:25px}.side-bar ul{margin-bottom:10%}.side-bar ul li{margin-top:5px;margin-bottom:.25em}.side-bar ul li a{margin-bottom:.25em}.side-bar .sprite{padding-left:25px}.side-bar .single_page{background-position:0 -199px}.side-bar .traditional{background-position:0 -219px}.side-bar .realtime{background-position:0 -179px}.side-bar .api{background-position:0 -158px}.boxy{font-family:Courier,"Courier New",sans-serif;background-color:#e4edec;border:1px solid #d0d6d6;padding-left:5px;padding-right:5px;padding-top:2px;padding-bottom:2px;font-weight:100}.sixteen{margin-right:10px}.nineteen{margin-right:7px}
-        .main { width: 100%; }
-        body { min-width: 925px; }
-</style>
-<!--[if IE 7]>
-    <style>
-    .getting-started li{overflow:visible;clear:both}.delete{width:690px}
+<!DOCTYPE html>
+<html style="overflow:hidden">
+  <head>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
+    <style type="text/css">
+      html { height: 100% }
+      body { height: 100%; margin: 0; padding: 0 }
+      #map-canvas { height: 100% }
     </style>
-<![endif]-->
+  <link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="style.css">
+	<script id="markerEdit" type="template">
+		<div class="editMarker">
+			<ul>
+				<li><input type="text" placeholder="Title" autofocus ng-model="markers['%id%'].title"></li>
+				<li><input type="text" placeholder="Time" ng-model="markers['%id%'].time"></li>
+				<li><textarea type="text" placeholder="Description" ng-model="markers['%id%'].description"></textarea></li>
+			</ul>
+			<div class="btn btn-default btn-xs" ng-click="removeEvent('%id%')">Remove Event</div>
+		</div>
+	</script>
+	<script id="markerShow" type="template">
+		<div class="showMarker">
+			<h1> {{markers['%id%'].title ? markers['%id%'].title : markers['%id%'].user.thirdPartyUserData.name + "'s Event" }} </h1>
+			<h2> {{markers['%id%'].time}} </h2>
+			<h3> {{markers['%id%'].description}} </h3>
+			<p>
+			  <img src="{{user.thirdPartyUserData.picture.data.url}}" ng-show="user.thirdPartyUserData.picture.data.url">
+			  <h4>{{user.thirdPartyUserData.name}}</h4>
+			</p>
+		</div>
+	</script>
+  </head>
+  <body ng-controller="MainController">
+    <nav class="navbar navbar-default" role="navigation" style="border-radius:0;margin-bottom:0">
+      <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href=""><img src="img/logo.png" height="25"></a>
 
-<div class="top-bar">
-    <div class="container clearfix">
-        <img class="logo" src="http://sailsjs.org/images/sails-logo.jpg" />
-    </div>
-</div>
+        </div>
 
-<div class="container clearfix">
-    <div class="main">
-        <h1 id="main-title"><%= __('Welcome') %></h1>
-        <h2>Getting started</h2>
-        <p>Don't worry, we've got your back.</p>
-        <div class="steps">
-            <ul class="getting-started">
-                <li>
-                    <div class="sprite one"></div>
-                    <div>
-                        <h3>Get your API going.</h3>
-                        <p>
-                            Run <span class="boxy">sails generate foo</span>.  This will create a model <span class="boxy">Foo</span> and controller <span class="boxy">FooController</span>
-                        </p>
-                    </div>
-                </li>
-                <li>
-                    <div class="sprite two"></div>
-                    <div>
-                        <h3>
-                            Lift your app.
-                        </h3>
-                        <p>
-                            Run <span class="boxy">sails lift</span> to start up your app.  If you visit <span class="boxy">http://localhost:1337/foo</span> in your browser, you'll see a socket.io-compatible REST API was generated for your 'Foo' model.
-                        </p>
-                    </div>
-                </li>
-                <li>
-                    <div class="sprite three"></div>
-                    <div>
-                        <h3>
-                            Dive in and start building.
-                        </h3>
-                        <p>From here, you can modify your models, create custom controller methods as Express middleware, and create custom routes (routes are set up in <span class="boxy">config/routes.js</span>).  Visit <a href="http://sailsjs.org">the Sails website</a> for more information on next steps.</p>
-                    </div>
-                </li>
-            </ul>
-        </div>
-        <div class="delete">
-            <div class="sprite">You're looking at: <span class="boxy">views/home/index.ejs</span></div>
-        </div>
-    </div>
-    <div class="side-bar">
-        <h4 id="new">
-            New to Sails?
-        </h4>
-        <ul>
-            <li>
-                <a href="http://sailsjs.org">Visit sailsjs.org</a>
-            </li>
-            <li>
-                <a href="http://sailsjs.org/#!documentation">Documentation</a>
-            </li>
-        </ul>
-        <h4>
-            Next Steps
-        </h4>
-        <ul>
-            <li class="sprite single_page">
-                <a target="_blank" href="http://sailsjs.org">Build a single page app</a>
-            </li>
-            <li class="sprite traditional">
-                <a target="_blank" href="http://sailsjs.org">Build a traditional webapp</a>
-            </li>
-            <li class="sprite realtime">
-                <a target="_blank" href="http://sailsjs.org">Build a realtime app</a>
-            </li>
-            <li class="sprite api">
-                <a target="_blank" href="http://sailsjs.org">Build an API</a>
-            </li>
-        </ul>
-    </div>
-</div>
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+          <ul class="nav navbar-nav">
+            <li><span style="display:inline;color:gray;line-height:50px;font-weight:light">Empowering campaigns to fight homelessness in New Haven.</span></li>
+          </ul>
+          <form class="navbar-form navbar-right" role="search" ng-submit="searchLocation()">
+            <div class="form-group">
+              <input type="text" class="form-control" placeholder="Where is your event?" ng-model="search">
+            </div>
+            <button type="submit" class="btn btn-primary">Search</button>
+            <button class="btn btn-success" ng-click="facebookLogin()" ng-show="!user" type="button">Facebook Login</button> 
+            <div ng-show="user" class="user">
+              <img src="{{user.thirdPartyUserData.picture.data.url}}" ng-show="user.thirdPartyUserData.picture.data.url">
+              <h4>{{user.thirdPartyUserData.name}}</h4>
+            </div>
+          </form>
+        </div><!-- /.navbar-collapse -->
+      </div><!-- /.container-fluid -->
+    </nav>
+    <div id="map-canvas"/>
+
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+  <script src="js/bootstrap.min.js"></script>
+  <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD65I5EEVXQSoEvAWvvBlHG8rtt2nD9eD4"></script>
+	<script type="text/javascript" src="https://cdn.firebase.com/js/client/1.0.17/firebase.js"></script>
+	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.0.1/angular.min.js"></script>
+	<script src="http://cdn.firebase.com/libs/angularfire/0.7.1/angularfire.min.js"></script>
+	<script type='text/javascript' src='https://cdn.firebase.com/js/simple-login/1.6.1/firebase-simple-login.js'></script>
+	<script type="text/javascript" src="index.js"></script>
+  </body>
+</html>
