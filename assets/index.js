@@ -114,7 +114,7 @@ function initialize() {
 		geocoder.geocode({'latLng': latlng}, function(results, status) {
 			if (status == google.maps.GeocoderStatus.OK) {
 				console.log(results[0].formatted_address);
-				$http.post('/api/postcard', { name: 'Temporary title!', address: results[0].formatted_address })
+				http.post('/api/postcard', { name: 'Temporary title!', address: results[0].formatted_address })
 				.success(function(data, status, something, headers){
 					console.log('success!');
 					console.log(data);
