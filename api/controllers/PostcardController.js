@@ -1,5 +1,5 @@
 var Lob = require('lob');
-Lob = new Lob('live_0af5f46b84383cfbe4e2e0a6d418a5c3f65');
+Lob = new Lob('test_f40738ecb229604550f62143181a6378d93');
 /**
  * PostcardController
  *
