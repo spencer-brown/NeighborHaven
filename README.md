@@ -1,0 +1,2 @@
+# neighborhaven
+### a Sails application
