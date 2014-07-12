@@ -86,19 +86,6 @@ function initialize() {
 	};
 	map = new google.maps.Map(document.getElementById("map-canvas"), mapOptions);
 
-	var iconBase = 'https://maps.google.com/mapfiles/kml/shapes/';
-	var icons = {
-		parking: {
-			icon: iconBase + 'parking_lot_maps.png'
-		},
-		library: {
-			icon: iconBase + 'library_maps.png'
-		},
-		info: {
-			icon: iconBase + 'info-i_maps.png'
-		}
-	};
-
 	google.maps.event.addListener(map, 'click', function(event) {
 		new FirebaseSimpleLogin(fb, function(error, user) {
 			
@@ -149,17 +136,28 @@ function initialize() {
 			markers[id].setMap(null);
 			delete markers[id];
 		}
+		
+		var image;
+		try {
+			if(location.user.thirdPartyUserData.name)
+				image = location.user.thirdPartyUserData.picture.data.url;
+			else
+				image = 'http://nwex.co.uk/images/smilies/turd.gif';
+		} catch(e) {
+			image = 'http://nwex.co.uk/images/smilies/turd.gif';
+		}
 
 
 		var marker = new google.maps.Marker({
 			position: pos, 
 			map: map,
-			icon: 'http://nwex.co.uk/images/smilies/turd.gif'
+			icon: image
 		});
 
-		getRandomNeighbors(pos);
-
 		google.maps.event.addListener(marker, 'click', function() {
+			
+
+			getRandomNeighbors(pos);
 			
 			new FirebaseSimpleLogin(fb, function(error, user) {
 				scope.$apply(function() {
@@ -200,7 +198,6 @@ function initialize() {
 			});
 			
 			markers[id] = marker;
-
 			
 		});
 	}
