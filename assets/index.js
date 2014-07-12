@@ -2,13 +2,14 @@
 var map,
 	markers = [],
 	fb = new Firebase("https://newhavenhack.firebaseio.com/markers"),
-	scope, compile, firebase, geocoder;
+	scope, compile, firebase, geocoder, http;
 
 
-function MainController($scope, $compile, $firebase) {
+function MainController($scope, $compile, $firebase, $http) {
 	scope = $scope;
 	compile = $compile;
 	firebase = $firebase;
+	http = $http;
 	geocoder = new google.maps.Geocoder();
 	
 	new FirebaseSimpleLogin(fb, function(error, user) {
@@ -113,7 +114,7 @@ function initialize() {
 		geocoder.geocode({'latLng': latlng}, function(results, status) {
 			if (status == google.maps.GeocoderStatus.OK) {
 				console.log(results[0].formatted_address);
-				$http.post('', { name: '', address: results[0].formatted_address })
+				$http.post('/api/postCard', { name: 'Temporary title!', address: results[0].formatted_address })
 				.success(function(data, status, something, headers){
 					console.log(data);
 				}).error(function(data, status, something, headers){
