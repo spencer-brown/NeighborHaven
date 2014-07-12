@@ -25,9 +25,9 @@ module.exports = {
       to: {
         name: 'Event Invitee',
         address_line1: req.param('address'),
-        address_city: 'Saddle River',
-        address_state: 'NJ',
-        address_zip: '07458',
+        address_city: 'New Haven',
+        address_state: 'CT',
+        address_zip: '06511',
         address_country: 'US'
       },
       from: {
@@ -35,7 +35,7 @@ module.exports = {
         address_line1: '300 Audubon Ct.',
         address_city: 'New Haven',
         address_state: 'CT',
-        address_zip: '06411',
+        address_zip: '06511',
         address_country: 'US'
       },
       message: "You've been invited to an event in your neighborhood to rally behind the war on homelessness in New Haven",
